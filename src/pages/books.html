@@ -10,9 +10,9 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-warning-subtle">
+        <nav class="navbar navbar-expand-lg bg-success-subtle">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="../../index.html">Bookstore</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -20,17 +20,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link" aria-current="page" href="../../index.html">Home</a>
                         <a class="nav-link active" href="#">Books</a>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container py-4">
-        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <div class="container py-4 mt-4">
+        <div class="p-4 mb-4 bg-body-tertiary rounded-3">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end my-3">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    data-bs-target="#createBook">
+                    Create book
+                </button>
+            </div>
             <table class="table table-hover table-bordered">
-                <thead>
+                <thead class="table-light">
                     <tr>
                         <th scope="col">ID</th>
                         <th>Name</th>
@@ -43,7 +49,47 @@
                 </tbody>
             </table>
         </div>
+        <div class="modal fade" id="createBook" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="createBookLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="createBookLabel">Create book</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Book name</label>
+                                <input class="form-control" name="name" id="name" placeholder="Book name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="genre" class="form-label">Genre</label>
+                                <select name="genre" id="genre" class="form-select">
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Science fiction">Science fiction</option>
+                                    <option value="Thriller">Thriller</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Author</label>
+                                <input type="author" class="form-control" id="author" name="author"
+                                    placeholder="Author">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="saveBookButton" type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/books.js"></script>
 </body>
