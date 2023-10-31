@@ -1,21 +1,15 @@
 document.addEventListener('DOMContentLoaded', async function () {
 
+    await getBooksRequest();
+
     const saveBookButton = document.getElementById('saveBookButton');
     saveBookButton.addEventListener('click', function () {
         const bookName = document.getElementById('name').value;
         const bookAuthor = document.getElementById('author').value;
         const bookGenre = document.getElementById('genre').value;
-        saveBook({ bookName, bookAuthor, bookGenre });
+        saveBookRequest({ bookName, bookAuthor, bookGenre });
     });
 
-    try {
-        let response = await fetch('http://localhost:3000/books');
-        let data = await response.json();
-        showBooks(data);
-    } catch (error) {
-        console.log(error);
-        showBooks(null);
-    }
 });
 
 function showBooks(books) {
@@ -27,11 +21,23 @@ function showBooks(books) {
                 <td>${book.title}</td>
                 <td>${book.genre}</td>
                 <td>${book.author}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#editBookModal">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                    data-bs-target="#editBookModal">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
             </tr>`;
         });
     } else {
         arrayBooks = `<tr class="table-warning">
-            <td colspan="4" class="text-center">No hay libros</td>
+            <td colspan="6" class="text-center">No hay libros</td>
         </tr>`;
     }
 
@@ -39,7 +45,18 @@ function showBooks(books) {
     tableBody.innerHTML = arrayBooks;
 }
 
-async function saveBook({ bookName, bookAuthor, bookGenre }) {
+async function getBooksRequest() {
+    try {
+        let response = await fetch('http://localhost:3000/books');
+        let data = await response.json();
+        showBooks(data);
+    } catch (error) {
+        console.log(error);
+        showBooks(null);
+    }
+}
+
+async function saveBookRequest({ bookName, bookAuthor, bookGenre }) {
     try {
         let request = await fetch('http://localhost:3000/books', {
             method: 'POST',
@@ -52,8 +69,16 @@ async function saveBook({ bookName, bookAuthor, bookGenre }) {
                 genre: bookGenre
             })
         });
+        let data = await request.json();
+
+        if (data.ok) {
+            alert('Book created successfully');
+        } else {
+            alert('Failed to create book');
+        }
 
         hideModal('createBook');
+        location.reload();
     } catch (error) {
 
     }
